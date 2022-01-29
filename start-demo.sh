@@ -18,3 +18,8 @@ export ODOO_EXTRA_ADDONS=$DISTRO_PATH/odoo_config/addons
 export ODOO_CONFIG_PATH=$DISTRO_PATH/odoo_config/odoo_csv
 export ODOO_CONFIG_FILE_PATH=$DISTRO_PATH/odoo_config/config/inializer_config.json
 docker-compose up -d
+
+# OpenMRS Initializer Tempfix
+until $(docker ps --filter health=healthy | grep -q ozone-docker_openmrs_1); do sleep 2; done
+until $(docker ps --filter health=unhealthy | grep -q ozone-docker_openmrs_1); do sleep 2; done
+docker restart ozone-docker_openmrs_1 > /dev/null
